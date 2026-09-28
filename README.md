@@ -1,4 +1,4 @@
-# Ngingetin Lo
+# Ngingetin.Lo
 
 Bot WhatsApp pengingat pribadi untuk kegiatan sekali, harian, mingguan, bulanan, tahunan, hingga beberapa tahun sekali.
 
@@ -12,7 +12,7 @@ Aplikasi kalender dan to-do list bekerja dengan pola **pull**: pengguna harus me
 
 Satu-satunya pengingat yang terbukti berhasil adalah **alarm**, karena alarm bekerja dengan pola **push**: ia datang sendiri tanpa perlu membuka aplikasi apa pun.
 
-Ingetin menerapkan pola push melalui satu-satunya aplikasi yang notifikasinya selalu saya perhatikan: **WhatsApp**. Pengingat penting dikirim sebagai pesan chat, dan agenda lengkap bisa dilihat cukup dengan membuka satu chat.
+Ngingetin.Lo menerapkan pola push melalui satu-satunya aplikasi yang notifikasinya selalu saya perhatikan: **WhatsApp**. Pengingat penting dikirim sebagai pesan chat, dan agenda lengkap bisa dilihat cukup dengan membuka satu chat.
 
 ## Tujuan
 
@@ -137,7 +137,7 @@ Masih berstatus usulan ([ADR-0009](docs/adr/0009-rencana-stack-teknologi.md)). P
 ## Struktur Repositori
 
 ```
-ingetin/
+Ngingetin-Lo/
 ├── README.md
 └── docs/
     ├── adr/          # Catatan keputusan desain (Architecture Decision Record)
