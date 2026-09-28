@@ -1,4 +1,4 @@
-# Ingetin
+# Ngingetin Lo
 
 Bot WhatsApp pengingat pribadi untuk kegiatan sekali, harian, mingguan, bulanan, tahunan, hingga beberapa tahun sekali.
 
