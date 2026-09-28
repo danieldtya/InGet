@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Environment dan rahasia (token WhatsApp, kredensial database)
+.env
+.env.*
+!.env.example
+
+# Node (dashboard, fase 3)
+node_modules/
+dist/
+
+# Editor dan OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
