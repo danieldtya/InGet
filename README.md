@@ -69,39 +69,51 @@ Pengingat bermode Notifikasi bisa memiliki lebih dari satu H-x, misalnya `7,2,0`
 
 ### Agenda dan Hitung Mundur
 
-`/agenda` menampilkan kegiatan hari ini, **satu bubble per kegiatan**, diurutkan menurut jam ([ADR-0015](docs/adr/0015-tampilan-bubble-dan-agenda.md)). `/agenda besok` menampilkan kegiatan besok.
+`/agenda` menampilkan kegiatan hari ini, **satu bubble per kegiatan**, diurutkan menurut jam ([ADR-0015](docs/adr/0015-tampilan-bubble-dan-agenda.md)). `/agenda tomorrow` menampilkan kegiatan besok.
 
 Di bawahnya terdapat bagian **hitung mundur**: kegiatan dalam 7 hari ke depan, misalnya *"Pajak motor: 5 hari lagi (25 Oktober)"*. Bagian ini berlaku untuk semua mode dan semua frekuensi kecuali harian dan mingguan, sehingga pengingat bermode Rekap tetap terlihat sebelum hari H ([ADR-0012](docs/adr/0012-hitung-mundur-di-agenda.md)).
 
 ### Pengecualian dan Arsip
 
 - **Abaikan** satu kemunculan pengingat berulang, atau **ubah** satu kemunculan saja tanpa memengaruhi yang lain ([ADR-0016](docs/adr/0016-abaikan-dan-ubah-satu-kemunculan.md)).
-- Pengingat yang selesai masuk **arsip**, dapat dilihat lewat `/arsip` dan diaktifkan kembali dengan mengubah tanggalnya. Arsip dihapus otomatis setelah 30 hari ([ADR-0017](docs/adr/0017-siklus-hidup-pengingat.md)).
+- Pengingat yang selesai masuk **arsip**, dapat dilihat lewat `/archive` dan diaktifkan kembali dengan mengubah tanggalnya. Arsip dihapus otomatis setelah 30 hari ([ADR-0017](docs/adr/0017-siklus-hidup-pengingat.md)).
 
 ### Zona Waktu
 
-Default WIB, dapat diubah ke WITA atau WIT lewat `/atur zona` ([ADR-0013](docs/adr/0013-waktu-lokal-dan-zona-waktu.md)).
+Default WIB, dapat diubah ke WITA atau WIT lewat `/set zone` ([ADR-0013](docs/adr/0013-waktu-lokal-dan-zona-waktu.md)).
 
 ---
 
 ## Perintah Bot (draf)
 
-> Sintaks di bawah masih draf dan akan difinalkan sebelum implementasi.
+> Nama perintah dan kata kunci memakai bahasa Inggris ([ADR-0023](docs/adr/0023-bahasa-perintah-dan-dokumentasi.md)). Sintaks di bawah masih draf dan akan difinalkan sebelum implementasi.
 
 | Perintah | Fungsi | Contoh |
 | --- | --- | --- |
-| `/tambah` | Menambah pengingat | `/tambah 25/10/2026 08:00 \| Bayar kartu kredit \| bulanan \| notif \| 7,2,0 \| sampai 25/09/2027` |
-| `/daftar` | Melihat semua pengingat aktif beserta ID-nya | `/daftar` |
-| `/agenda` | Melihat kegiatan hari ini dan hitung mundur | `/agenda`, `/agenda besok` |
-| `/ubah` | Mengubah pengingat (semua kemunculan) | `/ubah 12 jam=09:00` |
-| `/ubah` + tanggal | Mengubah satu kemunculan saja | `/ubah 12 25/11/2026 tanggal=26/11/2026` |
-| `/abaikan` | Melewati satu kemunculan | `/abaikan 12 25/11/2026` |
-| `/hapus` | Menghapus pengingat | `/hapus 12` |
-| `/arsip` | Melihat pengingat yang selesai (30 hari terakhir) | `/arsip` |
-| `/atur` | Mengubah zona waktu | `/atur zona WITA` |
-| `/bantuan` | Menampilkan daftar perintah | `/bantuan` |
+| `/add` | Menambah pengingat | `/add 25/10/2026 08:00 \| Bayar kartu kredit \| monthly \| notify \| 7,2,0 \| until 25/09/2027` |
+| `/list` | Melihat semua pengingat aktif beserta ID-nya | `/list` |
+| `/agenda` | Melihat kegiatan hari ini dan hitung mundur | `/agenda`, `/agenda tomorrow` |
+| `/edit` | Mengubah pengingat (semua kemunculan) | `/edit 12 time=09:00` |
+| `/edit` + tanggal | Mengubah satu kemunculan saja | `/edit 12 25/11/2026 date=26/11/2026` |
+| `/skip` | Melewati satu kemunculan | `/skip 12 25/11/2026` |
+| `/delete` | Menghapus pengingat | `/delete 12` |
+| `/archive` | Melihat pengingat yang selesai (30 hari terakhir) | `/archive` |
+| `/set` | Mengubah zona waktu | `/set zone WITA` |
+| `/help` | Menampilkan daftar perintah | `/help` |
 
-Urutan parameter `/tambah`: `tanggal [jam] | deskripsi | frekuensi | [mode] | [H-x] | [sampai tanggal]`. Parameter dalam kurung siku bersifat opsional. Mode default: `rekap`.
+Urutan parameter `/add`: `tanggal [jam] | deskripsi | frekuensi | [mode] | [H-x] | [until tanggal]`. Parameter dalam kurung siku bersifat opsional.
+
+| Kata kunci frekuensi | Arti |
+| --- | --- |
+| `once` | Sekali |
+| `daily` | Harian |
+| `weekly` | Mingguan |
+| `monthly` | Bulanan |
+| `monthly-weekday` | Bulanan berdasarkan urutan hari |
+| `yearly` | Tahunan |
+| `yearly:N` | Setiap N tahun, misalnya `yearly:5` |
+
+Kata kunci mode: `notify` (Notifikasi) dan `recap` (Rekap).
 
 ---
 
@@ -128,7 +140,7 @@ Masih berstatus usulan ([ADR-0009](docs/adr/0009-rencana-stack-teknologi.md)). P
 
 ## Pertanyaan yang Masih Terbuka
 
-**Sebelum menulis kode:** sintaks perintah final (termasuk format tanggal), isi bubble notifikasi dan template WhatsApp, bentuk `/agenda` saat kosong, pesan kesalahan dan isi `/bantuan`, konfirmasi sebelum menghapus, serta cara mengirim beberapa notifikasi sekaligus.
+**Sebelum menulis kode:** mode default saat tidak disebutkan, bahasa balasan bot, angka batas input, sintaks perintah final (termasuk format tanggal), isi bubble notifikasi dan template WhatsApp, bentuk `/agenda` saat kosong, pesan kesalahan dan isi `/help`, konfirmasi sebelum menghapus, serta cara mengirim beberapa notifikasi sekaligus.
 
 **Sebelum deploy:** hosting, mekanisme pemicu setiap jam, peringatan saat bot gagal, backup data, penyimpanan token, dan setup akun Meta.
 
@@ -136,7 +148,7 @@ Masih berstatus usulan ([ADR-0009](docs/adr/0009-rencana-stack-teknologi.md)). P
 
 ## Struktur Repositori
 
-```text
+```
 InGet/
 ├── README.md
 └── docs/

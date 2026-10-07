@@ -2,7 +2,7 @@
 
 - **Status:** draf
 - **Cakupan:** fase 1 (MVP)
-- **Tanggal:** 2026-10-06
+- **Tanggal:** 2026-10-06 (diperbarui 2026-10-07)
 
 Dokumen ini merangkum apa yang harus bisa dilakukan InGet di fase MVP. Setiap butir diberi nomor agar bisa dirujuk dari diagram, issue, dan kode, serta ditautkan ke ADR yang menjadi dasar keputusannya.
 
@@ -124,7 +124,7 @@ Aturan yang menentukan perilaku kebutuhan fungsional di atas.
 | BR-15 | Mengubah satu kemunculan dilakukan dengan mengabaikan kemunculan asli, lalu membuat pengingat sekali yang baru dengan data yang diubah | [0016](adr/0016-abaikan-dan-ubah-satu-kemunculan.md) |
 | BR-16 | Mengabaikan dan mengubah satu kemunculan hanya berlaku untuk kemunculan yang belum terjadi | [0016](adr/0016-abaikan-dan-ubah-satu-kemunculan.md) |
 | BR-17 | Pengingat sekali selesai setelah hari kemunculannya lewat. Pengingat berulang selesai setelah melewati tanggal akhirnya | [0017](adr/0017-siklus-hidup-pengingat.md) |
-| BR-18 | Setiap perubahan pada pengingat menghapus jadwal kirim yang belum terkirim, lalu membuatnya ulang berdasarkan data terbaru | Desain algoritma (belum dicatat di ADR) |
+| BR-18 | Setiap perubahan pada pengingat menghapus jadwal kirim yang belum terkirim, lalu membuatnya ulang berdasarkan data terbaru | [0020](adr/0020-jadwal-kirim-dibuat-ulang.md) |
 
 ---
 
@@ -133,7 +133,7 @@ Aturan yang menentukan perilaku kebutuhan fungsional di atas.
 | ID | Kategori | Kebutuhan | Sumber |
 | --- | --- | --- | --- |
 | NFR-01 | Keandalan | Tidak ada pengingat bermode Notifikasi yang hilang tanpa pemberitahuan. Jika satu pemicu gagal, pemicu berikutnya mencoba lagi | [0014](adr/0014-pemicu-per-jam-dan-pengingat-terlewat.md) |
-| NFR-02 | Keandalan | Pemrosesan bersifat idempoten: pemicu yang berjalan dua kali dan webhook yang dikirim ulang oleh Meta tidak menghasilkan pesan atau pengingat ganda | [0014](adr/0014-pemicu-per-jam-dan-pengingat-terlewat.md), desain database |
+| NFR-02 | Keandalan | Pemrosesan bersifat idempoten: pemicu yang berjalan dua kali dan webhook yang dikirim ulang oleh Meta tidak menghasilkan pesan atau pengingat ganda | [0014](adr/0014-pemicu-per-jam-dan-pengingat-terlewat.md), [0021](adr/0021-idempotensi-pesan-masuk-dan-keluar.md) |
 | NFR-03 | Biaya | Sistem dapat berjalan tanpa biaya server. Satu-satunya biaya rutin adalah pesan template WhatsApp | [0009](adr/0009-rencana-stack-teknologi.md) |
 | NFR-04 | Kepatuhan | Hanya memakai WhatsApp Cloud API resmi. Pesan di luar jendela layanan 24 jam memakai template yang disetujui Meta | [0001](adr/0001-whatsapp-cloud-api-resmi.md) |
 | NFR-05 | Keamanan | Token WhatsApp, kredensial database, dan nomor pemilik tidak pernah disimpan di repositori | [0009](adr/0009-rencana-stack-teknologi.md) |
@@ -141,6 +141,10 @@ Aturan yang menentukan perilaku kebutuhan fungsional di atas.
 | NFR-07 | Kemudahan pengembangan | Logika inti terpisah dari saluran, sehingga saluran baru dapat ditambahkan tanpa mengubah logika inti | [0008](adr/0008-arsitektur-tidak-terikat-saluran.md) |
 | NFR-08 | Dapat diuji | Parser perintah dan logika inti dapat diuji tanpa WhatsApp. Kasus tepi tanggal (BR-02, BR-03, BR-04) wajib memiliki unit test | [0006](adr/0006-input-mvp-perintah-teks.md), [0013](adr/0013-waktu-lokal-dan-zona-waktu.md) |
 | NFR-09 | Dokumentasi | Setiap keputusan desain penting dicatat sebagai ADR | [Indeks ADR](adr/README.md) |
+| NFR-10 | Keamanan | Webhook yang tanda tangannya tidak valid ditolak sebelum diproses, sehingga pesan palsu yang mengaku dari nomor pemilik tidak dapat masuk | [0022](adr/0022-keamanan-webhook-dan-batas-input.md) (diusulkan) |
+| NFR-11 | Keamanan | Semua akses database memakai query berparameter | [0022](adr/0022-keamanan-webhook-dan-batas-input.md) (diusulkan) |
+| NFR-12 | Keandalan | Input dibatasi: deskripsi maksimal 100 karakter, maksimal 100 pengingat aktif, maksimal 5 nilai H-x, dan H-x terbesar 365 | [0022](adr/0022-keamanan-webhook-dan-batas-input.md) (diusulkan) |
+| NFR-13 | Bahasa | Nama perintah dan kata kunci memakai bahasa Inggris. Dokumentasi memakai bahasa Indonesia | [0023](adr/0023-bahasa-perintah-dan-dokumentasi.md) |
 
 ---
 
@@ -154,18 +158,17 @@ Aturan yang menentukan perilaku kebutuhan fungsional di atas.
 - Mingguan di beberapa hari sekaligus, `/agenda minggu`, dan membalas bubble untuk mengubah atau menghapus (fase 4).
 - Dukungan banyak pengguna.
 
-## 7. Asumsi yang Perlu Dikonfirmasi
+## 7. Hal yang Perlu Dikonfirmasi
 
-Butir berikut muncul di draf README atau diskusi, tetapi belum pernah diputuskan secara eksplisit:
-
-| No | Asumsi |
-| --- | --- |
-| A-01 | Mode default saat tidak disebutkan adalah **Rekap** |
-| A-02 | Bahasa seluruh pesan bot adalah bahasa Indonesia |
-| A-03 | Bot ditujukan untuk sekitar puluhan hingga ratusan pengingat aktif, sehingga tidak ada kebutuhan performa khusus |
+| No | Hal | Status |
+| --- | --- | --- |
+| A-01 | Mode yang dipakai saat pemilik tidak menyebutkan mode di perintah tambah | Belum diputuskan |
+| A-02 | Bahasa isi balasan bot (bubble, notifikasi, pesan kesalahan) | Belum diputuskan. Bahasa perintah sudah diputuskan di NFR-13 |
+| A-03 | Angka batas input di NFR-12 | Menunggu konfirmasi |
 
 ## 8. Riwayat Dokumen
 
 | Tanggal | Perubahan |
 | --- | --- |
 | 2026-10-06 | Draf pertama, disusun dari ADR 0001 sampai 0019 |
+| 2026-10-07 | Sumber BR-18 dan NFR-02 dilengkapi (ADR 0020, 0021). Ditambah NFR-10 sampai NFR-13. Bagian 7 diperbarui |

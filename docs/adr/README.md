@@ -35,6 +35,10 @@ ADR yang sudah Diterima **tidak diedit isinya**. Jika keputusan berubah, buat AD
 | [0017](0017-siklus-hidup-pengingat.md) | Tanggal akhir, arsip 30 hari, dan aktivasi ulang | Diterima |
 | [0018](0018-hanya-melayani-nomor-pemilik.md) | Bot hanya melayani nomor pemilik | Diterima |
 | [0019](0019-pengulangan-bulanan-berdasarkan-hari.md) | Pengulangan bulanan berdasarkan urutan hari | Diterima |
+| [0020](0020-jadwal-kirim-dibuat-ulang.md) | Jadwal kirim disimpan sebagai tabel dan dibuat ulang setiap ada perubahan | Diterima |
+| [0021](0021-idempotensi-pesan-masuk-dan-keluar.md) | Idempotensi pesan masuk dan pesan keluar | Diterima |
+| [0022](0022-keamanan-webhook-dan-batas-input.md) | Verifikasi webhook dan batas input | Diusulkan |
+| [0023](0023-bahasa-perintah-dan-dokumentasi.md) | Perintah dalam bahasa Inggris, dokumentasi dalam bahasa Indonesia | Diterima |
 
 ## Menulis ADR Baru
 
