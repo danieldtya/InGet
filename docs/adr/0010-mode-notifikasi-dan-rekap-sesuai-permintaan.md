@@ -1,6 +1,6 @@
 # ADR-0010: Mode Notifikasi Terkirim Otomatis, Mode Rekap Hanya Sesuai Permintaan
 
-- **Status:** Diterima
+- **Status:** Digantikan oleh [ADR-0024](0024-rekap-harian-otomatis-dan-default-h-x.md)
 - **Tanggal:** 2026-09-28
 - **Menggantikan:** [ADR-0003](0003-dua-mode-notifikasi.md)
 

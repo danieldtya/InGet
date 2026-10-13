@@ -1,6 +1,6 @@
 # ADR-0014: Pemicu Berjalan Setiap Jam dan Pengingat Terlewat Tetap Dikirim
 
-- **Status:** Diterima
+- **Status:** Digantikan oleh [ADR-0026](0026-pengingat-menjelang-waktu-dan-pemicu-5-menit.md)
 - **Tanggal:** 2026-09-28
 
 ## Konteks

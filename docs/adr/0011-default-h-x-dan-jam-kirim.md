@@ -1,6 +1,6 @@
 # ADR-0011: Default H-x per Frekuensi dan Semua Notifikasi Dikirim Jam 00.05
 
-- **Status:** Diterima
+- **Status:** Digantikan oleh [ADR-0024](0024-rekap-harian-otomatis-dan-default-h-x.md)
 - **Tanggal:** 2026-09-28
 - **Menggantikan:** [ADR-0004](0004-pengingat-h-x.md)
 

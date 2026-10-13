@@ -1,7 +1,7 @@
 # ADR-0022: Verifikasi Webhook dan Batas Input
 
-- **Status:** Diusulkan
-- **Tanggal:** 2026-10-07
+- **Status:** Diterima
+- **Tanggal:** 2026-10-07 (diterima 2026-10-08)
 
 ## Konteks
 
@@ -9,7 +9,7 @@
 
 Selain itu, input pemilik tetap perlu dibatasi untuk mencegah kesalahan, misalnya menempelkan teks sangat panjang atau perintah yang tidak sengaja terkirim berkali-kali.
 
-## Usulan
+## Keputusan
 
 **Verifikasi asal webhook:**
 
@@ -20,14 +20,14 @@ Selain itu, input pemilik tetap perlu dibatasi untuk mencegah kesalahan, misalny
 
 - Semua query memakai parameter (parameterized query atau ORM), tidak pernah menyusun SQL dengan menggabungkan teks dari pesan, sehingga SQL injection tidak mungkin terjadi.
 
-**Batas input (angka awal, dapat disesuaikan):**
+**Batas input:**
 
 | Batas | Nilai |
 | --- | --- |
-| Panjang deskripsi pengingat | 100 karakter |
-| Jumlah pengingat aktif | 100 |
+| Panjang deskripsi pengingat | 200 karakter |
+| Jumlah pengingat aktif | 200 |
 | Jumlah nilai H-x per pengingat | 5 |
-| Nilai H-x terbesar | 365 |
+| Nilai H-x | 1 sampai 365 |
 
 ## Alasan Batas Input
 

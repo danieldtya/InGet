@@ -1,6 +1,6 @@
 # ADR-0006: Input MVP Memakai Perintah Teks, Tanpa LLM
 
-- **Status:** Diterima
+- **Status:** Digantikan oleh [ADR-0028](0028-percakapan-terpandu-dan-perintah-satu-baris.md)
 - **Tanggal:** 2026-09-24
 
 ## Konteks
