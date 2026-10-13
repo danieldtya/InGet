@@ -212,17 +212,17 @@ Masih berstatus usulan ([ADR-0009](docs/adr/0009-rencana-stack-teknologi.md)). P
 
 ## Struktur Repositori
 
-```text
+```
 InGet/
 ├── README.md
 └── docs/
     ├── kebutuhan.md  # Dokumen kebutuhan (functional dan non-functional requirements)
     ├── adr/          # Catatan keputusan desain (Architecture Decision Record)
-    └── diagrams/     # Use case, activity, class diagram, ERD (menyusul)
+    └── diagrams/     # Use case diagram (activity, class diagram, dan ERD menyusul)
 ```
 
 ## Dokumentasi Keputusan
 
 Setiap keputusan desain penting dicatat sebagai ADR di [`docs/adr/`](docs/adr/), lengkap dengan konteks, alasan, dan konsekuensinya. Mulailah dari [indeks ADR](docs/adr/README.md).
 
-Ringkasan semua kebutuhan sistem untuk fase MVP ada di [dokumen kebutuhan](docs/kebutuhan.md).
+Ringkasan semua kebutuhan sistem untuk fase MVP ada di [dokumen kebutuhan](docs/kebutuhan.md), dan gambaran aktor serta fitur ada di [use case diagram](docs/diagrams/use-case.md).
