@@ -148,7 +148,7 @@ Masih berstatus usulan ([ADR-0009](docs/adr/0009-rencana-stack-teknologi.md)). P
 
 ## Struktur Repositori
 
-```
+```text
 InGet/
 ├── README.md
 └── docs/
